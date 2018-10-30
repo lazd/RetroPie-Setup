@@ -24,22 +24,22 @@ function sources_splitwolf() {
 }
 
 function _get_opts_splitwolf() {
-    echo 'splitwolf-wolf3d -VERSION_WOLF3D_SHAREWARE=y' # shareware v1.4
-    echo 'splitwolf-wolf3d_apogee -VERSION_WOLF3D_APOGEE=y' # 3d realms / apogee v1.4 full
-    echo 'splitwolf-wolf3d_full -VERSION_WOLF3D=y' # gt / id / activision v1.4 full
-    echo 'splitwolf-sod -VERSION_SPEAR=y' # spear of destiny
-    echo 'splitwolf-spear_demo -VERSION_SPEAR_DEMO=y' # spear of destiny
+    # echo 'splitwolf-wolf3d VERSION_WOLF3D_SHAREWARE=y' # shareware v1.4
+    # echo 'splitwolf-wolf3d_apogee VERSION_WOLF3D_APOGEE=y' # 3d realms / apogee v1.4 full
+    echo 'splitwolf-wolf3d_full VERSION_WOLF3D=y' # gt / id / activision v1.4 full
+    # echo 'splitwolf-sod VERSION_SPEAR=y' # spear of destiny
+    # echo 'splitwolf-spear_demo VERSION_SPEAR_DEMO=y' # spear of destiny
 }
 
 function add_games_splitwolf() {
     local cmd="$1"
     declare -A games=(
-        ['vswap.wl1']="Wolfenstein 3D demo"
+        # ['vswap.wl1']="Wolfenstein 3D demo"
         ['vswap.wl6']="Wolfenstein 3D"
-        ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
-        ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
-        ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
-        ['vswap.sdm']="Wolfenstein 3D - Spear of Destiny Demo"
+        # ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
+        # ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
+        # ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
+        # ['vswap.sdm']="Wolfenstein 3D - Spear of Destiny Demo"
     )
     local game
     local wad
@@ -118,13 +118,13 @@ function get_md5sum() {
 function launch_splitwolf() {
     local wad_file="\$1"
     declare -A game_checksums=(
-        ['6efa079414b817c97db779cecfb081c9']="splitwolf-wolf3d"
-        ['a6d901dfb455dfac96db5e4705837cdb']="splitwolf-wolf3d_apogee"
+        # ['6efa079414b817c97db779cecfb081c9']="splitwolf-wolf3d"
+        # ['a6d901dfb455dfac96db5e4705837cdb']="splitwolf-wolf3d_apogee"
         ['b8ff4997461bafa5ef2a94c11f9de001']="splitwolf-wolf3d_full"
-        ['b1dac0a8786c7cdbb09331a4eba00652']="splitwolf-sod --mission 1"
-        ['25d92ac0ba012a1e9335c747eb4ab177']="splitwolf-sod --mission 2"
-        ['94aeef7980ef640c448087f92be16d83']="splitwolf-sod --mission 3"
-        ['35afda760bea840b547d686a930322dc']="splitwolf-spear_demo"
+        # ['b1dac0a8786c7cdbb09331a4eba00652']="splitwolf-sod --mission 1"
+        # ['25d92ac0ba012a1e9335c747eb4ab177']="splitwolf-sod --mission 2"
+        # ['94aeef7980ef640c448087f92be16d83']="splitwolf-sod --mission 3"
+        # ['35afda760bea840b547d686a930322dc']="splitwolf-spear_demo"
     )
         if [[ "\${game_checksums[\$(get_md5sum \$wad_file)]}" ]] 2>/dev/null; then
             $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --datadir=\$(dirname \$wad_file) --split=2 --splitlayout=2x1
