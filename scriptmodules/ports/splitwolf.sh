@@ -39,6 +39,7 @@ function add_games_splitwolf() {
         ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
         ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
         ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
+        ['vswap.sdm']="Wolfenstein 3D - Spear of Destiny Demo"
     )
     local game
     local wad
@@ -79,6 +80,11 @@ function game_data_splitwolf() {
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
+    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" ]]; then
+        cd "$__tmpdir"
+        # Get shareware game data
+        downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
+    fi
     chown -R $user:$user "$romdir/ports/splitwolf"
 }
 
@@ -112,10 +118,10 @@ function launch_splitwolf() {
         ['b1dac0a8786c7cdbb09331a4eba00652']="splitwolf-sod --mission 1"
         ['25d92ac0ba012a1e9335c747eb4ab177']="splitwolf-sod --mission 2"
         ['94aeef7980ef640c448087f92be16d83']="splitwolf-sod --mission 3"
-        ['?']="splitwolf-spear_demo"
+        ['35afda760bea840b547d686a930322dc']="splitwolf-spear_demo"
     )
         if [[ "\${game_checksums[\$(get_md5sum \$wad_file)]}" ]] 2>/dev/null; then
-            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --split=2 --splitlayout=2x1
+            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --datadir=\$(dirname \$wad_file) --split=2 --splitlayout=2x1
         else
             echo "Error: \$wad_file (md5: \$(get_md5sum \$wad_file)) is not a supported version"
         fi
