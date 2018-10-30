@@ -34,12 +34,12 @@ function _get_opts_splitwolf() {
 function add_games_splitwolf() {
     local cmd="$1"
     declare -A games=(
-        # ['vswap.wl1']="Wolfenstein 3D demo"
-        ['vswap.wl6']="Wolfenstein 3D"
-        # ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
-        # ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
-        # ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
-        # ['vswap.sdm']="Wolfenstein 3D - Spear of Destiny Demo"
+        # ['vswap.wl1']="Splitwolf demo"
+        ['vswap.wl6']="Splitwolf"
+        # ['vswap.sd1']="Splitwolf - Spear of Destiny Ep 1"
+        # ['vswap.sd2']="Splitwolf - Spear of Destiny Ep 2"
+        # ['vswap.sd3']="Splitwolf - Spear of Destiny Ep 3"
+        # ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
     )
     local game
     local wad
