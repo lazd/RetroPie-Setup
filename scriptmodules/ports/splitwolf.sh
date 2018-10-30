@@ -61,7 +61,6 @@ function build_splitwolf() {
         make clean
         make $defs DATADIR="$romdir/ports/splitwolf/"
         mv $bin "bin/$bin"
-        cp -r lwmp bin/
         md_ret_require+=("bin/$bin")
     done < <(_get_opts_splitwolf)
 }
@@ -69,6 +68,7 @@ function build_splitwolf() {
 function install_splitwolf() {
     # mkdir -p "$md_inst/share/man"
     # cp -Rv "$md_build/man6" "$md_inst/share/man/"
+    cp -r lwmp bin/
     md_ret_files=('bin')
 }
 
@@ -132,7 +132,7 @@ function launch_splitwolf() {
         ['94aeef7980ef640c448087f92be16d83']="splitwolf-sod --mission 3"
     )
         if [[ "\${game_checksums[\$(get_md5sum \$wad_file)]}" ]] 2>/dev/null; then
-            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --split 2 --splitlayout 2x1
+            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --splitdatadir /opt/retropie/ports/splitwolf/bin/lwmp/ --split 2 --splitlayout 2x1
         else
             echo "Error: \$wad_file (md5: \$(get_md5sum \$wad_file)) is not a supported version"
         fi
