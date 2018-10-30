@@ -80,7 +80,7 @@ function game_data_splitwolf() {
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" ]]; then
+    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" && ! -f "$romdir/ports/splitwolf/vswap.sod" ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
