@@ -39,7 +39,7 @@ function add_games_splitwolf() {
         # ['vswap.sd1']="Splitwolf - Spear of Destiny Ep 1"
         # ['vswap.sd2']="Splitwolf - Spear of Destiny Ep 2"
         # ['vswap.sd3']="Splitwolf - Spear of Destiny Ep 3"
-        # ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
+        ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
     )
     local game
     local wad
@@ -127,7 +127,7 @@ function launch_splitwolf() {
         # ['35afda760bea840b547d686a930322dc']="splitwolf-spear_demo"
     )
         if [[ "\${game_checksums[\$(get_md5sum \$wad_file)]}" ]] 2>/dev/null; then
-            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --datadir=\$(dirname \$wad_file) --split=2 --splitlayout=2x1
+            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --split=2 --splitlayout=2x1
         else
             echo "Error: \$wad_file (md5: \$(get_md5sum \$wad_file)) is not a supported version"
         fi
