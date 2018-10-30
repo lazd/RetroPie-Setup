@@ -24,8 +24,8 @@ function sources_splitwolf() {
 }
 
 function _get_opts_splitwolf() {
-    # echo 'splitwolf-wolf3d VERSION_WOLF3D_SHAREWARE=y' # shareware v1.4
-    # echo 'splitwolf-wolf3d_apogee VERSION_WOLF3D_APOGEE=y' # 3d realms / apogee v1.4 full
+    echo 'splitwolf-wolf3d VERSION_WOLF3D_SHAREWARE=y' # shareware v1.4
+    echo 'splitwolf-wolf3d_apogee VERSION_WOLF3D_APOGEE=y' # 3d realms / apogee v1.4 full
     echo 'splitwolf-wolf3d_full VERSION_WOLF3D=y' # gt / id / activision v1.4 full
     echo 'splitwolf-sod VERSION_SPEAR=y' # spear of destiny
     # echo 'splitwolf-spear_demo VERSION_SPEAR_DEMO=y' # spear of destiny
@@ -34,8 +34,8 @@ function _get_opts_splitwolf() {
 function add_games_splitwolf() {
     local cmd="$1"
     declare -A games=(
-        # ['vswap.wl1']="Splitwolf demo"
-        ['vswap.wl6']="Splitwolf"
+        ['vswap.wl1']="Splitwolf - Wolf 3D Demo"
+        ['vswap.wl6']="Splitwolf - Wolf 3D"
         ['vswap.sod']="Splitwolf - Spear of Destiny Ep 1"
         ['vswap.sd2']="Splitwolf - Spear of Destiny Ep 2"
         ['vswap.sd3']="Splitwolf - Spear of Destiny Ep 3"
@@ -76,11 +76,16 @@ function game_data_splitwolf() {
     pushd "$romdir/ports/splitwolf"
     rename 'y/A-Z/a-z/' *
     popd
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.wl6" && ! -f "$romdir/ports/splitwolf/vswap.wl1" ]]; then
+    if [[ ! -f "$romdir/ports/splitwolf/vswap.wl1" ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
+    # if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" ]]; then
+    #     cd "$__tmpdir"
+    #     # Get shareware game data
+    #     downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
+    # fi
     if [[ ! -f "$romdir/ports/splitwolf/vswap.sod" ]]; then
         cd "$__tmpdir"
         # Get shareware game data
@@ -91,11 +96,6 @@ function game_data_splitwolf() {
         # Get shareware game data
         downloadAndExtract "http://archive.org/download/DOS.Memories.Project.1980-2003/DOS.Memories.Project.1980-2003.zip/Spear%20of%20Destiny%20Mission%20Packs%20%281994%29%28FormGen%20Inc%29.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
-
-    # odds n ends: http://www.veracottis.co.uk/odds.zip
-    # bitter end: http://www.brlowe.co.uk/Bitter.zip
-    # thomas mapset: requires full wolf to play http://www.veracottis.co.uk/TW3D30.zip
-    # SoD Extreme: no direct link
 
     chown -R $user:$user "$romdir/ports/splitwolf"
 }
@@ -108,7 +108,7 @@ function configure_splitwolf() {
     # remove obsolete emulator entries
     while read game; do
         delEmulator "${game%% *}" "splitwolf"
-    done < <(_get_opts_splitwolf; echo -e "splitwolf-spear2\nsplitwolf-spear3")
+    done < <(_get_opts_splitwolf)
 
     if [[ "$md_mode" == "install" ]]; then
         game_data_splitwolf
@@ -124,8 +124,8 @@ function get_md5sum() {
 function launch_splitwolf() {
     local wad_file="\$1"
     declare -A game_checksums=(
-        # ['6efa079414b817c97db779cecfb081c9']="splitwolf-wolf3d"
-        # ['a6d901dfb455dfac96db5e4705837cdb']="splitwolf-wolf3d_apogee"
+        ['6efa079414b817c97db779cecfb081c9']="splitwolf-wolf3d"
+        ['a6d901dfb455dfac96db5e4705837cdb']="splitwolf-wolf3d_apogee"
         ['b8ff4997461bafa5ef2a94c11f9de001']="splitwolf-wolf3d_full"
         ['b1dac0a8786c7cdbb09331a4eba00652']="splitwolf-sod"
         ['25d92ac0ba012a1e9335c747eb4ab177']="splitwolf-sod --mission 2"
