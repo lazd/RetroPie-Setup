@@ -69,6 +69,7 @@ function install_splitwolf() {
     # mkdir -p "$md_inst/share/man"
     # cp -Rv "$md_build/man6" "$md_inst/share/man/"
     cp -r lwmp bin/
+    cp gamecontrollerdb.txt bin/
     md_ret_files=('bin')
 }
 
