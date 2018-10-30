@@ -20,7 +20,7 @@ function depends_splitwolf() {
 }
 
 function sources_splitwolf() {
-    gitPullOrClone "$md_build" https://bitbucket.org/linuxwolf6/split_wolf4sdl_pr.git
+    gitPullOrClone "$md_build" git@bitbucket.org:lazd/split_wolf4sdl_pr.git
 }
 
 function _get_opts_splitwolf() {
@@ -85,6 +85,12 @@ function game_data_splitwolf() {
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
+
+    # odds n ends: http://www.veracottis.co.uk/odds.zip
+    # bitter end: http://www.brlowe.co.uk/Bitter.zip
+    # thomas mapset: requires full wolf to play http://www.veracottis.co.uk/TW3D30.zip
+    # SoD Extreme: no direct link
+
     chown -R $user:$user "$romdir/ports/splitwolf"
 }
 
