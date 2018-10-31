@@ -11,6 +11,7 @@
 
 rp_module_id="splitwolf"
 rp_module_desc="SplitWolf - 2-4 player split-screen Wolfenstein 3D / Spear of Destiny"
+rp_module_help="Game File Extension: .wl6, .sod, .sd2, .sd3\n\nCopy your game files to $romdir/ports/splitwolf/\n\nIf you add new game files, run: sudo ~/RetroPie-Setup/retropie_packages.sh splitwolf configure"
 rp_module_licence="NONCOM https://bitbucket.org/linuxwolf6/splitwolf/src/master/license-mame.txt"
 rp_module_section="opt"
 rp_module_flags="dispmanx !mali !kms"
@@ -19,8 +20,18 @@ function depends_splitwolf() {
     getDepends libsdl2-dev libsdl2-mixer-dev
 }
 
+function install_bin_splitwolf() {
+    downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/splitwolf-latest-retropie.zip" "$md_inst/bin/"
+}
+
 function sources_splitwolf() {
     gitPullOrClone "$md_build" https://bitbucket.org/linuxwolf6/splitwolf.git
+
+    if [[ ! -d "$md_build/lwmp" ]]; then
+        cd "$__tmpdir"
+        # Get game assets
+        downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/lwmp.zip" "$md_build/"
+    fi
 }
 
 function _get_opts_splitwolf() {
@@ -68,6 +79,7 @@ function build_splitwolf() {
 function install_splitwolf() {
     # mkdir -p "$md_inst/share/man"
     # cp -Rv "$md_build/man6" "$md_inst/share/man/"
+    cp -r "$md_build/lwmp" "$md_inst/bin/"
     cp gamecontrollerdb.txt bin/
     md_ret_files=('bin')
 }
@@ -85,12 +97,6 @@ function game_data_splitwolf() {
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
-    fi
-
-    if [[ ! -d "/opt/retropie/ports/splitwolf/bin/lwmp" ]]; then
-        cd "$__tmpdir"
-        # Get shareware game data
-        downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/lwmp.zip" "/opt/retropie/ports/splitwolf/bin"
     fi
 
     chown -R $user:$user "$romdir/ports/splitwolf"
@@ -126,9 +132,10 @@ function launch_splitwolf() {
         ['b1dac0a8786c7cdbb09331a4eba00652']="splitwolf-sod"
         ['25d92ac0ba012a1e9335c747eb4ab177']="splitwolf-sod --mission 2"
         ['94aeef7980ef640c448087f92be16d83']="splitwolf-sod --mission 3"
+        ['35afda760bea840b547d686a930322dc']="splitwolf-spear_demo"
     )
         if [[ "\${game_checksums[\$(get_md5sum \$wad_file)]}" ]] 2>/dev/null; then
-            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --splitdatadir /opt/retropie/ports/splitwolf/bin/lwmp/ --split 2 --splitlayout 2x1
+            $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]} --splitdatadir $md_inst/bin/lwmp/ --split 2 --splitlayout 2x1
         else
             echo "Error: \$wad_file (md5: \$(get_md5sum \$wad_file)) is not a supported version"
         fi
