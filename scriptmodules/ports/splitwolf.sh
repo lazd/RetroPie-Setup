@@ -79,8 +79,8 @@ function build_splitwolf() {
 function install_splitwolf() {
     # mkdir -p "$md_inst/share/man"
     # cp -Rv "$md_build/man6" "$md_inst/share/man/"
-    cp -r "$md_build/lwmp" "$md_inst/bin/"
     cp gamecontrollerdb.txt bin/
+    cp -r lwmp bin/
     md_ret_files=('bin')
 }
 
@@ -88,12 +88,16 @@ function game_data_splitwolf() {
     pushd "$romdir/ports/splitwolf"
     rename 'y/A-Z/a-z/' *
     popd
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.wl1" ]]; then
+    if [[ ! -f "$romdir/ports/splitwolf/vswap.wl1" &&
+          ! -f "$romdir/ports/splitwolf/vswap.wl6"
+    ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" ]]; then
+    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" &&
+          ! -f "$romdir/ports/splitwolf/vswap.sod"
+    ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
