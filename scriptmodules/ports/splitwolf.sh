@@ -68,7 +68,6 @@ function build_splitwolf() {
 function install_splitwolf() {
     # mkdir -p "$md_inst/share/man"
     # cp -Rv "$md_build/man6" "$md_inst/share/man/"
-    cp -r lwmp bin/
     cp gamecontrollerdb.txt bin/
     md_ret_files=('bin')
 }
@@ -86,6 +85,12 @@ function game_data_splitwolf() {
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
+    fi
+
+    if [[ ! -d "/opt/retropie/ports/splitwolf/bin/lwmp" ]]; then
+        cd "$__tmpdir"
+        # Get shareware game data
+        downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/lwmp.zip" "/opt/retropie/ports/splitwolf/bin"
     fi
 
     chown -R $user:$user "$romdir/ports/splitwolf"
