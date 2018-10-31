@@ -11,7 +11,7 @@
 
 rp_module_id="splitwolf"
 rp_module_desc="SplitWolf - 2-4 player split-screen Wolfenstein 3D / Spear of Destiny"
-rp_module_licence="NONCOM https://bitbucket.org/linuxwolf6/split_wolf4sdl_pr/raw/2d0bbd80abee2d4b2ab11b45ab5d95773be0cbcc/license-mame.txt"
+rp_module_licence="NONCOM https://bitbucket.org/linuxwolf6/splitwolf/src/master/license-mame.txt"
 rp_module_section="opt"
 rp_module_flags="dispmanx !mali !kms"
 
@@ -20,7 +20,7 @@ function depends_splitwolf() {
 }
 
 function sources_splitwolf() {
-    gitPullOrClone "$md_build" git@bitbucket.org:lazd/split_wolf4sdl_pr.git
+    gitPullOrClone "$md_build" https://bitbucket.org/linuxwolf6/splitwolf.git
 }
 
 function _get_opts_splitwolf() {
