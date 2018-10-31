@@ -28,7 +28,7 @@ function _get_opts_splitwolf() {
     echo 'splitwolf-wolf3d_apogee VERSION_WOLF3D_APOGEE=y' # 3d realms / apogee v1.4 full
     echo 'splitwolf-wolf3d_full VERSION_WOLF3D=y' # gt / id / activision v1.4 full
     echo 'splitwolf-sod VERSION_SPEAR=y' # spear of destiny
-    # echo 'splitwolf-spear_demo VERSION_SPEAR_DEMO=y' # spear of destiny
+    echo 'splitwolf-spear_demo VERSION_SPEAR_DEMO=y' # spear of destiny
 }
 
 function add_games_splitwolf() {
@@ -39,7 +39,7 @@ function add_games_splitwolf() {
         ['vswap.sod']="Splitwolf - Spear of Destiny Ep 1"
         ['vswap.sd2']="Splitwolf - Spear of Destiny Ep 2"
         ['vswap.sd3']="Splitwolf - Spear of Destiny Ep 3"
-        # ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
+        ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
     )
     local game
     local wad
@@ -82,20 +82,10 @@ function game_data_splitwolf() {
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
-    # if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" ]]; then
-    #     cd "$__tmpdir"
-    #     # Get shareware game data
-    #     downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
-    # fi
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.sod" ]]; then
+    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" ]]; then
         cd "$__tmpdir"
         # Get shareware game data
-        downloadAndExtract "http://archive.org/download/DOS.Memories.Project.1980-2003/DOS.Memories.Project.1980-2003.zip/Spear%20Of%20Destiny%20%281992%29%28Formgen%29.zip" "$romdir/ports/splitwolf" "-j -LL"
-    fi
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.sd2"  || ! -f "$romdir/ports/splitwolf/vswap.sd3" ]]; then
-        cd "$__tmpdir"
-        # Get shareware game data
-        downloadAndExtract "http://archive.org/download/DOS.Memories.Project.1980-2003/DOS.Memories.Project.1980-2003.zip/Spear%20of%20Destiny%20Mission%20Packs%20%281994%29%28FormGen%20Inc%29.zip" "$romdir/ports/splitwolf" "-j -LL"
+        downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
     fi
 
     chown -R $user:$user "$romdir/ports/splitwolf"
