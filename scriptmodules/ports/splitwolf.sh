@@ -22,6 +22,7 @@ function depends_splitwolf() {
 
 function install_bin_splitwolf() {
     downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/splitwolf-latest-retropie.zip" "$md_inst/bin/"
+    downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/lwmp.zip" "$md_inst/bin/"
 }
 
 function sources_splitwolf() {
