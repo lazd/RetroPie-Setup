@@ -119,7 +119,7 @@ function configure_splitwolf() {
     done < <(_get_opts_splitwolf)
 
     if [[ "$md_mode" == "install" ]]; then
-        game_data_wolf4sdl
+        game_data_splitwolf
         cat > "$md_inst/bin/splitwolf.sh" << _EOF_
 #!/bin/bash
 
