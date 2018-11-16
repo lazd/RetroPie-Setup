@@ -11,7 +11,7 @@
 
 rp_module_id="splitwolf"
 rp_module_desc="SplitWolf - 2-4 player split-screen Wolfenstein 3D / Spear of Destiny"
-rp_module_help="Game File Extension: .wl6, .sod, .sd2, .sd3\n\nCopy your game files to $romdir/ports/splitwolf/\n\nIf you add new game files, run: sudo ~/RetroPie-Setup/retropie_packages.sh splitwolf configure"
+rp_module_help="Game File Extension: .wl6, .sod, .sd2, .sd3\n\nCopy your game files to $romdir/ports/wolf3d/\n\nIf you add new game files, run: sudo ~/RetroPie-Setup/retropie_packages.sh splitwolf configure"
 rp_module_licence="NONCOM https://bitbucket.org/linuxwolf6/splitwolf/src/master/license-mame.txt"
 rp_module_section="opt"
 rp_module_flags="dispmanx !mali !kms"
@@ -58,7 +58,7 @@ function add_games_splitwolf() {
     local wad
 
     for game in "${!games[@]}"; do
-        wad="$romdir/ports/splitwolf/$game"
+        wad="$romdir/ports/wolf3d/$game"
         if [[ -f "$wad" ]]; then
             addPort "$md_id" "splitwolf" "${games[$game]}" "$cmd" "$wad"
         fi
@@ -72,7 +72,7 @@ function build_splitwolf() {
         local bin="${opt%% *}"
         local defs="${opt#* }"
         make clean
-        make $defs DATADIR="$romdir/ports/splitwolf/"
+        make $defs DATADIR="$romdir/ports/wolf3d/"
         mv $bin "bin/$bin"
         md_ret_require+=("bin/$bin")
     done < <(_get_opts_splitwolf)
@@ -87,31 +87,31 @@ function install_splitwolf() {
 }
 
 function game_data_splitwolf() {
-    pushd "$romdir/ports/splitwolf"
+    pushd "$romdir/ports/wolf3d"
     rename 'y/A-Z/a-z/' *
     popd
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.wl1" &&
-          ! -f "$romdir/ports/splitwolf/vswap.wl6"
+    if [[ ! -f "$romdir/ports/wolf3d/vswap.wl1" &&
+          ! -f "$romdir/ports/wolf3d/vswap.wl6"
     ]]; then
         cd "$__tmpdir"
         # Get shareware game data
-        downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/splitwolf" "-j -LL"
+        downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/wolf3d" "-j -LL"
     fi
-    if [[ ! -f "$romdir/ports/splitwolf/vswap.sdm" &&
-          ! -f "$romdir/ports/splitwolf/vswap.sod"
+    if [[ ! -f "$romdir/ports/wolf3d/vswap.sdm" &&
+          ! -f "$romdir/ports/wolf3d/vswap.sod"
     ]]; then
         cd "$__tmpdir"
         # Get shareware game data
-        downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/splitwolf" "-j -LL"
+        downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/wolf3d" "-j -LL"
     fi
 
-    chown -R $user:$user "$romdir/ports/splitwolf"
+    chown -R $user:$user "$romdir/ports/wolf3d"
 }
 
 function configure_splitwolf() {
     local game
 
-    mkRomDir "ports/splitwolf"
+    mkRomDir "ports/wolf3d"
 
     # remove obsolete emulator entries
     while read game; do
@@ -119,7 +119,7 @@ function configure_splitwolf() {
     done < <(_get_opts_splitwolf)
 
     if [[ "$md_mode" == "install" ]]; then
-        game_data_splitwolf
+        game_data_wolf4sdl
         cat > "$md_inst/bin/splitwolf.sh" << _EOF_
 #!/bin/bash
 
