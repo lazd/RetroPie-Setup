@@ -116,7 +116,7 @@ _EOF_
         ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
     )
 
-    add_games_wolf4sdl "$md_inst/bin/splitwolf.sh %ROM%" "$(declare -p games)"
+    add_games_wolf4sdl "$md_inst/bin/splitwolf.sh %ROM%" "splitwolf" "$(declare -p games)"
 
     moveConfigDir "$home/.splitwolf" "$md_conf_root/splitwolf"
 

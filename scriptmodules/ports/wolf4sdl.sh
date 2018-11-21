@@ -32,7 +32,8 @@ function _get_opts_wolf4sdl() {
 }
 
 function add_games_wolf4sdl() {
-    eval "declare -A games="${2#*=}
+    eval "declare -A games="${3#*=}
+    local port="$2"
     local cmd="$1"
     local game
     local wad
@@ -40,7 +41,7 @@ function add_games_wolf4sdl() {
     for game in "${!games[@]}"; do
         wad="$romdir/ports/wolf3d/$game"
         if [[ -f "$wad" ]]; then
-            addPort "$md_id" "wolf3d" "${games[$game]}" "$cmd" "$wad"
+            addPort "$md_id" "$port" "${games[$game]}" "$cmd" "$wad"
         fi
     done
 }
@@ -135,7 +136,7 @@ _EOF_
         ['vswap.sdm']="Wolfenstein 3D - Spear of Destiny Demo"
     )
 
-    add_games_wolf4sdl "$md_inst/bin/wolf4sdl.sh %ROM%" "$(declare -p games)"
+    add_games_wolf4sdl "$md_inst/bin/wolf4sdl.sh %ROM%" "wolf3d" "$(declare -p games)"
 
     moveConfigDir "$home/.wolf4sdl" "$md_conf_root/wolf3d"
 
