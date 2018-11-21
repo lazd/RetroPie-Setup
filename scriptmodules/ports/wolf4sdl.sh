@@ -28,6 +28,7 @@ function _get_opts_wolf4sdl() {
     echo 'wolf4sdl-3dr-v14 -DCARMACIZED' # 3d realms / apogee v1.4 full
     echo 'wolf4sdl-gt-v14 -DCARMACIZED -DGOODTIMES' # gt / id / activision v1.4 full
     echo 'wolf4sdl-spear -DCARMACIZED -DGOODTIMES -DSPEAR' # spear of destiny
+    echo 'wolf4sdl-spear-sw -DCARMACIZED -DSPEARDEMO -DSPEAR' # spear of destiny demo
 }
 
 function add_games_wolf4sdl() {
@@ -67,15 +68,13 @@ function game_data_wolf4sdl() {
     pushd "$romdir/ports/wolf3d"
     rename 'y/A-Z/a-z/' *
     popd
-    if [[ ! -f "$romdir/ports/wolf3d/vswap.wl1" &&
-          ! -f "$romdir/ports/wolf3d/vswap.wl6"
+    if [[ ! -f "$romdir/ports/wolf3d/vswap.wl1" && ! -f "$romdir/ports/wolf3d/vswap.wl6"
     ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/wolf3d" "-j -LL"
     fi
-    if [[ ! -f "$romdir/ports/wolf3d/vswap.sdm" &&
-          ! -f "$romdir/ports/wolf3d/vswap.sod"
+    if [[ ! -f "$romdir/ports/wolf3d/vswap.sdm" && ! -f "$romdir/ports/wolf3d/vswap.sod"
     ]]; then
         cd "$__tmpdir"
         # Get shareware game data
@@ -115,6 +114,7 @@ function launch_wolf4sdl() {
         ['b1dac0a8786c7cdbb09331a4eba00652']="wolf4sdl-spear --mission 1"
         ['25d92ac0ba012a1e9335c747eb4ab177']="wolf4sdl-spear --mission 2"
         ['94aeef7980ef640c448087f92be16d83']="wolf4sdl-spear --mission 3"
+        ['35afda760bea840b547d686a930322dc']="wolf4sdl-spear-sw"
     )
         if [[ "\${game_checksums[\$(get_md5sum \$wad_file)]}" ]] 2>/dev/null; then
             $md_inst/bin/\${game_checksums[\$(get_md5sum \$wad_file)]}
@@ -134,6 +134,7 @@ _EOF_
         ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
         ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
         ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
+        ['vswap.sdm']="Wolfenstein 3D - Spear of Destiny Demo"
     )
 
     add_games_wolf4sdl "$md_inst/bin/wolf4sdl.sh %ROM%" "$(declare -p games)"
