@@ -31,14 +31,8 @@ function _get_opts_wolf4sdl() {
 }
 
 function add_games_wolf4sdl() {
+    eval "declare -A games="${2#*=}
     local cmd="$1"
-    declare -A games=(
-        ['vswap.wl1']="Wolfenstein 3D demo"
-        ['vswap.wl6']="Wolfenstein 3D"
-        ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
-        ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
-        ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
-    )
     local game
     local wad
 
@@ -134,7 +128,15 @@ _EOF_
         chmod +x "$md_inst/bin/wolf4sdl.sh"
     fi
 
-    add_games_wolf4sdl "$md_inst/bin/wolf4sdl.sh %ROM%"
+    declare -A games=(
+        ['vswap.wl1']="Wolfenstein 3D demo"
+        ['vswap.wl6']="Wolfenstein 3D"
+        ['vswap.sd1']="Wolfenstein 3D - Spear of Destiny Ep 1"
+        ['vswap.sd2']="Wolfenstein 3D - Spear of Destiny Ep 2"
+        ['vswap.sd3']="Wolfenstein 3D - Spear of Destiny Ep 3"
+    )
+
+    add_games_wolf4sdl "$md_inst/bin/wolf4sdl.sh %ROM%" "$(declare -p games)"
 
     moveConfigDir "$home/.wolf4sdl" "$md_conf_root/wolf3d"
 

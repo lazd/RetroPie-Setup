@@ -44,27 +44,6 @@ function _get_opts_splitwolf() {
     echo 'splitwolf-spear_demo VERSION_SPEAR_DEMO=y' # spear of destiny
 }
 
-function add_games_splitwolf() {
-    local cmd="$1"
-    declare -A games=(
-        ['vswap.wl1']="Splitwolf - Wolf 3D Demo"
-        ['vswap.wl6']="Splitwolf - Wolf 3D"
-        ['vswap.sod']="Splitwolf - Spear of Destiny Ep 1"
-        ['vswap.sd2']="Splitwolf - Spear of Destiny Ep 2"
-        ['vswap.sd3']="Splitwolf - Spear of Destiny Ep 3"
-        ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
-    )
-    local game
-    local wad
-
-    for game in "${!games[@]}"; do
-        wad="$romdir/ports/wolf3d/$game"
-        if [[ -f "$wad" ]]; then
-            addPort "$md_id" "splitwolf" "${games[$game]}" "$cmd" "$wad"
-        fi
-    done
-}
-
 function build_splitwolf() {
     mkdir "bin"
     local opt
@@ -128,7 +107,16 @@ _EOF_
         chmod +x "$md_inst/bin/splitwolf.sh"
     fi
 
-    add_games_splitwolf "$md_inst/bin/splitwolf.sh %ROM%"
+    declare -A games=(
+        ['vswap.wl1']="Splitwolf - Wolf 3D Demo"
+        ['vswap.wl6']="Splitwolf - Wolf 3D"
+        ['vswap.sod']="Splitwolf - Spear of Destiny Ep 1"
+        ['vswap.sd2']="Splitwolf - Spear of Destiny Ep 2"
+        ['vswap.sd3']="Splitwolf - Spear of Destiny Ep 3"
+        ['vswap.sdm']="Splitwolf - Spear of Destiny Demo"
+    )
+
+    add_games_wolf4sdl "$md_inst/bin/splitwolf.sh %ROM%" "$(declare -p games)"
 
     moveConfigDir "$home/.splitwolf" "$md_conf_root/splitwolf"
 
