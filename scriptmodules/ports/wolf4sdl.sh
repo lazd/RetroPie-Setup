@@ -68,14 +68,12 @@ function game_data_wolf4sdl() {
     pushd "$romdir/ports/wolf3d"
     rename 'y/A-Z/a-z/' *
     popd
-    if [[ ! -f "$romdir/ports/wolf3d/vswap.wl1" && ! -f "$romdir/ports/wolf3d/vswap.wl6"
-    ]]; then
+    if [[ ! -f "$romdir/ports/wolf3d/vswap.wl1" && ! -f "$romdir/ports/wolf3d/vswap.wl6" ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/wolf3d14.zip" "$romdir/ports/wolf3d" "-j -LL"
     fi
-    if [[ ! -f "$romdir/ports/wolf3d/vswap.sdm" && ! -f "$romdir/ports/wolf3d/vswap.sod"
-    ]]; then
+    if [[ ! -f "$romdir/ports/wolf3d/vswap.sdm" && ! -f "$romdir/ports/wolf3d/vswap.sod" ]]; then
         cd "$__tmpdir"
         # Get shareware game data
         downloadAndExtract "http://maniacsvault.net/ecwolf/files/shareware/soddemo.zip" "$romdir/ports/wolf3d" "-j -LL"
