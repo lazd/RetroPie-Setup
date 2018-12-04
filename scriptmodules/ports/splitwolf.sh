@@ -13,8 +13,7 @@ rp_module_id="splitwolf"
 rp_module_desc="SplitWolf - 2-4 player split-screen Wolfenstein 3D / Spear of Destiny"
 rp_module_help="Game File Extension: .wl6, .sod, .sd2, .sd3\n\nCopy your game files to $romdir/ports/wolf3d/\n\nIf you add new game files, run: sudo ~/RetroPie-Setup/retropie_packages.sh splitwolf configure"
 rp_module_licence="NONCOM https://bitbucket.org/linuxwolf6/splitwolf/src/master/license-mame.txt"
-rp_module_section="opt"
-rp_module_flags="dispmanx !mali !kms"
+rp_module_section="exp"
 
 function depends_splitwolf() {
     getDepends libsdl2-dev libsdl2-mixer-dev
@@ -40,14 +39,14 @@ function _get_opts_splitwolf() {
 }
 
 function build_splitwolf() {
-    mkdir "bin"
+    mkdir -p "bin"
     local opt
     while read -r opt; do
         local bin="${opt%% *}"
         local defs="${opt#* }"
         make clean
-        make $defs DATADIR="$romdir/ports/wolf3d/"
-        mv $bin "bin/$bin"
+        make "$defs" DATADIR="$romdir/ports/wolf3d/"
+        mv "$bin" "bin/$bin"
         md_ret_require+=("bin/$bin")
     done < <(_get_opts_splitwolf)
 }
@@ -114,6 +113,4 @@ _EOF_
     add_games_wolf4sdl "$md_inst/bin/splitwolf.sh %ROM%" "splitwolf" "$(declare -p games)"
 
     moveConfigDir "$home/.splitwolf" "$md_conf_root/splitwolf"
-
-    setDispmanx "$md_id" 1
 }
