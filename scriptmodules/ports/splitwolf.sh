@@ -21,12 +21,6 @@ function depends_splitwolf() {
 
 function sources_splitwolf() {
     gitPullOrClone "$md_build" https://bitbucket.org/linuxwolf6/splitwolf.git
-
-    if [[ ! -d "$md_build/lwmp" ]]; then
-        cd "$__tmpdir"
-        # Get game assets
-        downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/lwmp.zip" "$md_build/"
-    fi
 }
 
 function _get_opts_splitwolf() {
@@ -36,6 +30,13 @@ function _get_opts_splitwolf() {
     echo 'splitwolf-sod VERSION_SPEAR=y' # spear of destiny
     echo 'splitwolf-sodmp VERSION_SPEAR_MP=y' # spear of destiny mission packs
     echo 'splitwolf-spear_demo VERSION_SPEAR_DEMO=y' # spear of destiny
+}
+
+function game_data_splitwolf() {
+    if [[ ! -d "$md_inst/bin/lwmp" ]]; then
+        # Get game assets
+        downloadAndExtract "https://bitbucket.org/linuxwolf6/splitwolf/downloads/lwmp.zip" "$md_inst/bin/"
+    fi
 }
 
 function build_splitwolf() {
@@ -52,8 +53,7 @@ function build_splitwolf() {
 }
 
 function install_splitwolf() {
-    cp gamecontrollerdb.txt bin/
-    cp -r lwmp bin/
+    cp "$md_build/gamecontrollerdb.txt" "$md_build/bin/"
     md_ret_files=('bin')
 }
 
@@ -68,6 +68,7 @@ function configure_splitwolf() {
     done < <(_get_opts_splitwolf)
 
     if [[ "$md_mode" == "install" ]]; then
+        game_data_splitwolf
         game_data_wolf4sdl
         cat > "$md_inst/bin/splitwolf.sh" << _EOF_
 #!/bin/bash
